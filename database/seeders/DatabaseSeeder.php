@@ -17,7 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([ProductSeeder::class, ServerSeeder::class, ProductImageSeeder::class, RequestSeeder::class]);
+        User::factory(1)->create([
+            'name' => 'nuthmc',
+            'email' => 'nuth@mail.com',
+            'password' => '123',
+            'is_admin' => true,
+        ]);
+        return;
+        $this->call([ProductSeeder::class, ServerSeeder::class, ProductImageSeeder::class, RequestSeeder::class, RequestHistorySeeder::class]);
         // User::factory(10)->create();
 
         // Server::factory()->create([

@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromocodeController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServerController;
-use App\Models\Server;
 use App\Models\ServerList;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     $servers = ServerList::all();
@@ -15,11 +15,25 @@ Route::get('/', function () {
 });
 
 
-Route::get('server/product/{id}', [ServerController::class, 'showProductDetail'])->name('item.detail');
+Route::get('server/product/{id}', [ProductController::class, 'showProductDetail'])->name('item.detail');
 Route::get('server/{id}', [ServerController::class, 'show'])->name('server.main');
 
 
 // Checking Promocode
-Route::post('/promo', [PromocodeController::class, 'compare'])->name('promo.apply');
+Route::post('/promo/apply', [PromocodeController::class, 'apply'])->name('promo.apply');
+Route::post('/promo/check', [PromocodeController::class, 'compare'])->name('promo.check');
 
-Route::get('/dashboard', [DashboardController::class, 'main']);
+// Main dashboard view
+Route::get('/dashboard', [DashboardController::class, 'main'])->middleware('auth');
+
+
+// For Accept and Reject purchase request
+Route::post('/request/process', [RequestController::class, 'processPurchaseRequest'])->name('request.process');
+
+
+// User Account
+// Login page view
+Route::get('/login', [AuthController::class, 'loginView'])->name('login');
+// login request
+Route::post('/login', [AuthController::class, 'login'])->name('login.request');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

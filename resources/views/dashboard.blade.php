@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - NOMROTI</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+@extends('layouts.app')
 
-    <style>
+@section('title', 'Dashboard')
+@section('style')
+<style>
         :root {
-            --primary-orange: #ff6600; 
+            --primary-orange: #ff6600;
             --orange-hover: #ff8533;
-            --bg-body: #1a1a1a; 
+            --bg-body: #1a1a1a;
             --bg-card: #252525;
             --bg-darker: #121212;
             --text-main: #ffffff;
@@ -34,7 +24,7 @@
         /* Navbar */
         .navbar { background: var(--bg-darker); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; }
         .navbar-brand { font-weight: 800; font-size: 1.2rem; color: white !important; }
-        
+
         /* Stats Cards */
         .stat-card {
             background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05);
@@ -65,10 +55,10 @@
             font-weight: 600; font-size: 0.85rem; text-transform: uppercase; padding: 12px;
         }
         .table-custom td { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 12px; font-size: 0.95rem; }
-        
+
         .user-cell { display: flex; align-items: center; gap: 10px; font-weight: 600; }
         .user-avatar { width: 30px; height: 30px; border-radius: 5px; }
-        
+
         /* Buttons & Badges */
         .btn-icon {
             width: 35px; height: 35px; border-radius: 8px; border: none;
@@ -77,7 +67,7 @@
         }
         .btn-approve { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
         .btn-approve:hover { background: #2ecc71; color: white; }
-        
+
         .btn-reject { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
         .btn-reject:hover { background: #e74c3c; color: white; }
 
@@ -106,22 +96,25 @@
         .modal-content { background-color: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); color: white; }
         .receipt-img { width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
     </style>
-</head>
-<body>
+@endsection
 
-    <!-- Navbar -->
+@section('content')
+<!-- Navbar -->
     <nav class="navbar mb-4">
         <div class="container-fluid px-4">
             <a class="navbar-brand" href="#"><i class="fas fa-shield-alt text-warning me-2"></i> NOMROTI <span class="text-muted fw-normal fs-6">| Admin Panel</span></a>
             <div class="d-flex align-items-center gap-3">
                 <span class="text-muted small">Logged in as <strong>Admin</strong></span>
-                <a href="index.html" class="btn btn-sm btn-outline-secondary">Logout</a>
+                <form method='POST' action='/logout'>
+                    @csrf
+                    <button type='submit' href="index.html" class="btn btn-sm btn-outline-secondary">Logout</button>
+                </form>
             </div>
         </div>
     </nav>
 
     <div class="container-fluid px-4">
-        
+
         <!-- Stats Row -->
         <div class="row g-4 mb-4">
             <div class="col-md-3">
@@ -258,7 +251,7 @@
                 time: 2
 
             });
-            
+
         @endforeach
         // let pendingOrders = [
         //     { id: 101, user: 'Steve', avatar: 'https://minotar.net/helm/Steve/30.png', platform: 'java', item: 'Titan Rank', price: 25.00, receipt: 'https://via.placeholder.com/400x600?text=Receipt+101', time: '2 mins ago' },
@@ -269,17 +262,14 @@
         //     { id: 106, user: 'PvP_God', avatar: 'https://minotar.net/helm/PvP_God/30.png', platform: 'java', item: 'Unban', price: 20.00, receipt: 'https://via.placeholder.com/400x600?text=Receipt+106', time: '1 hour ago' },
         //     { id: 107, user: 'NoobMaster', avatar: 'https://minotar.net/helm/NoobMaster/30.png', platform: 'bedrock', item: 'Iron Key', price: 2.50, receipt: 'https://via.placeholder.com/400x600?text=Receipt+107', time: '1 hour ago' }
         // ];
-
-        let orderHistory = [
-            { id: 99, user: 'Dream', item: 'Vote Key', amount: 1.00, status: 'Approved', staff: 'Admin1', time: '1 hour ago' },
-            { id: 98, user: 'Griefer007', item: 'Titan Rank', amount: 25.00, status: 'Rejected', staff: 'Mod2', time: '2 hours ago' },
-            { id: 97, user: 'Techno', item: 'God Key', amount: 20.00, status: 'Approved', staff: 'Admin1', time: '3 hours ago' },
-            { id: 96, user: 'Philza', item: 'Elytra', amount: 15.00, status: 'Approved', staff: 'You', time: '4 hours ago' },
-            { id: 95, user: 'Tommy', item: 'Unban', amount: 20.00, status: 'Rejected', staff: 'Admin1', time: '5 hours ago' },
-            { id: 94, user: 'Wilbur', item: 'Music Disc', amount: 5.00, status: 'Approved', staff: 'You', time: '6 hours ago' },
-            { id: 93, user: 'Tubbo', item: 'Bee Pet', amount: 3.00, status: 'Approved', staff: 'Mod2', time: '7 hours ago' }
-        ];
-
+        //
+        //
+        let orderHistory = []
+        @foreach ($histories as $history)
+        orderHistory.push({
+                id: {{$history['id']}}, user: "{{$history['name']}}", item: "{{$history['item']}}", price:"{{ $history['price']}}", status: "{{$history['is_approved'] ? 'Approved' : 'Rejected'}}", time: "{{$history['date']}}", staff: "{{ $history['staff'] }}", amount: {{ $history['amount'] }}
+            })
+        @endforeach
         // CONFIG
         const rowsPerPage = 5;
         let currentPendingPage = 1;
@@ -310,8 +300,8 @@
             const paginatedItems = pendingOrders.slice(start, end);
 
             paginatedItems.forEach(order => {
-                const platformIcon = order.platform === 'java' 
-                    ? '<i class="fab fa-java text-warning" title="Java"></i>' 
+                const platformIcon = order.platform === 'java'
+                    ? '<i class="fab fa-java text-warning" title="Java"></i>'
                     : '<i class="fas fa-gamepad text-info" title="Bedrock"></i>';
 
                 const tr = document.createElement('tr');
@@ -336,7 +326,7 @@
                 `;
                 tbody.appendChild(tr);
             });
-            
+
             renderPagination('pendingPagination', pendingOrders.length, page, renderPending);
         }
 
@@ -377,7 +367,7 @@
             const container = document.getElementById(containerId);
             container.innerHTML = '';
             const totalPages = Math.ceil(totalItems / rowsPerPage);
-            
+
             if (totalPages <= 1) return;
 
             // Prev Button
@@ -404,44 +394,28 @@
             container.appendChild(nextBtn);
         }
 
-        // --- ACTIONS ---
-        function processOrder(id, status) {
-            const index = pendingOrders.findIndex(o => o.id === id);
-            if (index === -1) return;
-
-            const order = pendingOrders[index];
-            
-            if (status === 'Rejected') {
-                if (!confirm("Are you sure you want to REJECT Order #" + id + "?")) return;
-            } else {
-                if (!confirm("Confirm APPROVAL for Order #" + id + "?")) return;
+        // Action
+        function processOrder(id, status, staffId) {
+            let data = {
+                id: id,
+                staff: staffId,
+                isApproved: status === 'Approved' ? true : false
             }
-
-            // Move to history
-            const newHistoryItem = {
-                id: order.id,
-                user: order.user,
-                item: order.item,
-                amount: order.price,
-                status: status,
-                staff: 'You',
-                time: 'Just now'
-            };
-            orderHistory.unshift(newHistoryItem);
-            filteredHistory.unshift(newHistoryItem); // Add to filtered list too
-
-            // Remove from pending
-            pendingOrders.splice(index, 1);
-
-            // Re-render
-            renderPending(1); // Reset to page 1 to see changes clearly
-            renderHistory(1);
-            updateStats();
+            fetch ('http://localhost:8000/request/process', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(data)
+            }).then(res => res.json()).then(result => {
+                window.location.reload()
+            })
         }
 
         function updateStats() {
             document.getElementById('statPending').innerText = pendingOrders.length;
-            
+
             const revenue = orderHistory
                 .filter(o => o.status === 'Approved')
                 .reduce((sum, o) => sum + o.amount, 0);
@@ -454,8 +428,8 @@
         // --- SEARCH ---
         document.getElementById('searchInput').addEventListener('keyup', function(e) {
             const term = e.target.value.toLowerCase();
-            filteredHistory = orderHistory.filter(o => 
-                o.user.toLowerCase().includes(term) || 
+            filteredHistory = orderHistory.filter(o =>
+                o.user.toLowerCase().includes(term) ||
                 o.id.toString().includes(term) ||
                 o.item.toLowerCase().includes(term)
             );
@@ -470,5 +444,4 @@
             receiptModal.show();
         }
     </script>
-</body>
-</html>
+@endsection

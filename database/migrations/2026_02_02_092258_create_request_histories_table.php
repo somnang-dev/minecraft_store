@@ -11,22 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('request_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name');
-            $table->string('product_name');
-            $table->string('product_id');
+            $table->string('name');
+            $table->string('item');
+            $table->decimal('amount', 10);
             $table->decimal('price', 10);
-            $table->text('proof');
-            $table->date('request_date');
+            $table->boolean('is_approved');
+            $table->bigInteger('staff');
+            $table->timestamps();
         });
     }
 
-    /*u*
+    /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('request_histories');
     }
 };

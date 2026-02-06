@@ -14,9 +14,9 @@
 
     <style>
         :root {
-            --primary-orange: #ff6600; 
+            --primary-orange: #ff6600;
             --orange-hover: #ff8533;
-            --bg-body: #1a1a1a; 
+            --bg-body: #1a1a1a;
             --bg-card: #252525;
             --bg-darker: #121212;
             --text-main: #ffffff;
@@ -40,7 +40,7 @@
 
         /* --- LEFT COL: GALLERY --- */
         .gallery-main {
-            width: 100%; height: 400px; 
+            width: 100%; height: 400px;
             background: var(--bg-darker); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center; margin-bottom: 15px;
             overflow: hidden;
@@ -60,10 +60,10 @@
 
         /* --- RIGHT COL: INFO & PAYMENT --- */
         .product-info { padding-left: 20px; }
-        
+
         .product-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
         .product-price { font-size: 2rem; color: var(--primary-orange); font-weight: 700; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; display: flex; gap: 10px }
-        
+
         .product-desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem; }
 
         .checkout-box {
@@ -84,7 +84,7 @@
         }
 
         .platform-option {
-            border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; 
+            border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;
             cursor: pointer; text-align: center; transition: 0.2s; background: rgba(255,255,255,0.02);
         }
         .platform-option:hover { background: rgba(255,255,255,0.05); }
@@ -122,7 +122,7 @@
 
     <div class="product-container">
         <div class="row">
-            
+
             <!-- LEFT: Image Gallery -->
             <div class="col-lg-6">
                 <div class="gallery-main">
@@ -135,9 +135,9 @@
                         <div class='active'>
                             <img src={{ $img['image_path'] }} alt={{ $product['name'] }} alt='hello' height='%'>
                         </div>
-                        
+
                     @endforeach --}}
-                    
+
                     <!-- Javascript will populate this based on the main image to simulate a gallery -->
                 </div>
             </div>
@@ -146,7 +146,7 @@
             <div class="col-lg-6 product-info">
                 <h1 class="product-title" id="pTitle">{{ $product['name']}}</h1>
                 <div class="product-price"><div id='pPrice'>${{ $product['price']}}</div><div id="dPrice"></div> </div>
-                
+
                 <div class="product-desc">
                     <p>{{ $product['long_description']}}</p>
                     <ul class="text-muted small">
@@ -162,7 +162,7 @@
                         <i class="fas fa-shopping-cart me-2 text-warning"></i> Secure Checkout
                     </div>
 
-                    <form onsubmit="event.preventDefault(); alert('Receipt Submitted! Please allow 10-15 minutes for processing.');">
+                    <form onsubmit='submitForm(event)'>
                         <!-- 1. Player Info -->
                         <div class="row g-3 mb-3">
                             <div class="col-12">
@@ -186,7 +186,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- 3. Promo Code (NEW FEATURE) -->
                         <div class="mb-4">
                             <label class="form-label text-muted small">Promo Code</label>
@@ -234,7 +234,7 @@
         const mainImgSrc = params.get('img') || @json($product['icon_path']);
         const elementPrice = document.getElementById('pPrice');
         // 2. Populate Data
-       
+
 
         // 3. Generate Thumbnails (Simulating Gallery)
         const thumbContainer = document.getElementById('thumbContainer');
@@ -246,6 +246,10 @@
             createThumb(@json($img['image_path']), false);
         @endforeach
 
+        function submitForm(evnet) {
+            event.preventDefault();
+            alert('Hello world');
+        }
         function createThumb(src, isActive) {
             const div = document.createElement('div');
             div.className = `thumb ${isActive ? 'active' : ''}`;
@@ -276,10 +280,10 @@
                 msg.innerText = 'Discount already applied.';
                 return;
             }
-            
+
             // Checking for promocode
             console.log(input)
-            fetch("{{ route('promo.apply') }}", {
+            fetch("{{ route('promo.check') }}", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -302,7 +306,7 @@
                 msg.innerText = 'Promo code applied'
                 msg.style.color = '#14ff43ad'
             })
-        
+
         }
     </script>
 

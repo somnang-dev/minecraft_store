@@ -11,22 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('request_approveds', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name');
-            $table->string('product_name');
-            $table->string('product_id');
-            $table->decimal('price', 10);
-            $table->text('proof');
-            $table->date('request_date');
+            $table->bigInteger('request_id');
+            $table->bigInteger('approved_by');
+            $table->timestamps();
         });
     }
 
-    /*u*
+    /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('request_approveds');
     }
 };

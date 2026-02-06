@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Promocode extends Model
+class RequestApproved extends Model
 {
-    /** @use HasFactory<\Database\Factories\PromocodeFactory> */
+    /** @use HasFactory<\Database\Factories\RequestApprovedFactory> */
     use HasFactory;
-
-    public $timestamps = false;
 }
