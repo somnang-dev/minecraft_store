@@ -37,3 +37,6 @@ Route::get('/login', [AuthController::class, 'loginView'])->name('login');
 // login request
 Route::post('/login', [AuthController::class, 'login'])->name('login.request');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::post('checkout', [ProductController::class, 'checkout'])->name('product.checkout');

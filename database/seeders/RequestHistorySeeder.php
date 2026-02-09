@@ -17,7 +17,6 @@ class RequestHistorySeeder extends Seeder
             'name' => fake()->name(),
             'item' => 'Epic Rank',
             'amount' => 10,
-            'price' => 10,
             'is_approved' => false,
             'staff' => 1,
         ]);

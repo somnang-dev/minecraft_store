@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Models\Request;
+use Illuminate\Http\Request;
+
+use function Termwind\renderUsing;
 
 class ProductController extends Controller
 {
@@ -19,7 +21,17 @@ class ProductController extends Controller
 
     public function sendRequest(Request $request)
     {
-        
+
     }
+
+        public function checkout(Request $request)
+        {
+            $validated = $request->validate([
+                'receipt' => 'required|image|max:2048',
+            ]);
+            $path = $request->file('receipt')->store('receipts', 'public');
+
+            return 'uploaded successfully';
+        }
 }
 

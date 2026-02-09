@@ -19,9 +19,8 @@ class RequestController extends Controller
             'name' => $data['user_name'],
             'item' => $data['product_name'],
             'amount' => $data['price'],
-            'price' => $data['price'],
             'is_approved' => $request->isApproved ,
-            'staff' => 1,
+            'staff' => $request->staff,
         ]);
         RE::destroy($request->id);
         return response()->json([

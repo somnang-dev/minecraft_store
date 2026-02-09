@@ -2,6 +2,7 @@
 
 @section('title', 'Dashboard')
 @section('style')
+
 <style>
         :root {
             --primary-orange: #ff6600;
@@ -267,7 +268,7 @@
         let orderHistory = []
         @foreach ($histories as $history)
         orderHistory.push({
-                id: {{$history['id']}}, user: "{{$history['name']}}", item: "{{$history['item']}}", price:"{{ $history['price']}}", status: "{{$history['is_approved'] ? 'Approved' : 'Rejected'}}", time: "{{$history['date']}}", staff: "{{ $history['staff'] }}", amount: {{ $history['amount'] }}
+                id: {{$history['id']}}, user: "{{$history['name']}}", item: "{{$history['item']}}", status: "{{$history['is_approved'] ? 'Approved' : 'Rejected'}}", time: "{{$history['date']}}", staff: "{{ $history['staff'] }}", amount: {{ $history['amount'] }}
             })
         @endforeach
         // CONFIG
@@ -395,10 +396,10 @@
         }
 
         // Action
-        function processOrder(id, status, staffId) {
+        function processOrder(id, status, staffId = 1) {
             let data = {
                 id: id,
-                staff: staffId,
+                staff: {{ auth()->user()->id }},
                 isApproved: status === 'Approved' ? true : false
             }
             fetch ('http://localhost:8000/request/process', {

@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             'password' => '123',
             'is_admin' => true,
         ]);
-        return;
         $this->call([ProductSeeder::class, ServerSeeder::class, ProductImageSeeder::class, RequestSeeder::class, RequestHistorySeeder::class]);
         // User::factory(10)->create();
 

@@ -162,7 +162,8 @@
                         <i class="fas fa-shopping-cart me-2 text-warning"></i> Secure Checkout
                     </div>
 
-                    <form onsubmit='submitForm(event)'>
+                    <form method='POST' action="{{route('product.checkout')}}" enctype='multipart/form-data'>
+                        @csrf
                         <!-- 1. Player Info -->
                         <div class="row g-3 mb-3">
                             <div class="col-12">
@@ -209,7 +210,7 @@
                         <!-- 5. Upload Receipt -->
                         <div class="mb-4">
                             <label class="form-label text-muted small">Upload Receipt</label>
-                            <input type="file" class="form-control" accept="image/*" required>
+                            <input type="file" class="form-control" accept="image/*" required name='receipt'>
                             <div class="form-text text-muted" style="font-size: 0.8rem;">Attach a screenshot of your payment.</div>
                         </div>
 
@@ -248,7 +249,7 @@
 
         function submitForm(evnet) {
             event.preventDefault();
-            alert('Hello world');
+            fetch()
         }
         function createThumb(src, isActive) {
             const div = document.createElement('div');

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('item');
             $table->decimal('amount', 10);
-            $table->decimal('price', 10);
             $table->boolean('is_approved');
             $table->bigInteger('staff');
             $table->timestamps();
