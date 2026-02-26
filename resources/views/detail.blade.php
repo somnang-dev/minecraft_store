@@ -168,7 +168,7 @@
                         <div class="row g-3 mb-3">
                             <div class="col-12">
                                 <label class="form-label text-muted small">Minecraft Username</label>
-                                <input type="text" class="form-control" placeholder="Enter your in-game name" required>
+                                <input type="text" class="form-control" placeholder="Enter your in-game name" name='in_game_name' required>
                             </div>
                         </div>
 
